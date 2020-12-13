@@ -41,6 +41,8 @@ const Signin = (props) => {
                         positionClass: "toast-bottom-left",
                     })
 
+                    localStorage.setItem('jwt_info', JSON.stringify(res))
+
                     props.history.push('/home')
                 }
 
