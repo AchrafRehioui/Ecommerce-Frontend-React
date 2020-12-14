@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { API_URL } from './../config';
+import { isAuthenticated } from './../auth/helpers';
+
 import toastr from 'toastr';
 import "toastr/build/toastr.css";
 
@@ -36,15 +38,6 @@ const Menu = (props) => {
     }
 
 
-    const isAuthenticated = () => {
-
-        const jwt = localStorage.getItem('jwt_info');
-        if (jwt) {
-            return JSON.parse(jwt);
-        }
-
-        return false
-    }
 
     return (
         <div>
@@ -55,11 +48,17 @@ const Menu = (props) => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav mr-auto">
-                        {isAuthenticated() && (
+
+                        <Fragment>
                             <li className="nav-item active">
                                 <Link style={isActive(props.history, '/')} className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                             </li>
-                        )}
+
+                            <li className="nav-item active">
+                                <Link style={isActive(props.history, '/dashboard')} className="nav-link" to="/dashboard">Dashboard <span className="sr-only">(current)</span></Link>
+                            </li>
+                        </Fragment>
+
                     </ul>
                     <ul className="navbar-nav ml-auto">
 
