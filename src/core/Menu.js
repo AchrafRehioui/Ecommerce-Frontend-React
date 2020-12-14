@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { API_URL } from './../config';
+import toastr from 'toastr';
+import "toastr/build/toastr.css";
+
+
 
 const isActive = (history, path) => {
 
@@ -16,6 +21,19 @@ const isActive = (history, path) => {
 }
 
 const Menu = (props) => {
+
+    const signout = () => {
+        fetch(`${API_URL}/signout`)
+            .then(() => {
+                toastr.info('User sign out', 'Next time', {
+                    positionClass: "toast-bottom-left",
+                })
+                localStorage.removeItem('jwt_info')
+
+                props.history.push('/signin')
+            })
+            .catch()
+    }
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -36,6 +54,9 @@ const Menu = (props) => {
                         </li>
                         <li className="nav-item">
                             <Link style={isActive(props.history, '/signup')} className="nav-link" to="/signup">Register</Link>
+                        </li>
+                        <li className="nav-item">
+                            <span className="nav-link" style={{ cursor: 'pointer' }} onClick={signout} >SignOut</span>
                         </li>
                     </ul>
                 </div>
