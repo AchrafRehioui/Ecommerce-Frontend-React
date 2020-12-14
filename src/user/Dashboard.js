@@ -28,14 +28,13 @@ function Dashboard() {
     const purchaseHistory = () => {
         return (
             <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">Purchase HISTORY</h5>
-                                <ul className="list-group list-group-flush">
-                                    <li className="list-group-item">History</li>
-                                </ul>
-                            </div>
+                    <div className="card-body">
+                        <h5 className="card-title">Purchase HISTORY</h5>
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">History</li>
+                            </ul>
+                    </div>
             </div>
-
         )
     }
 

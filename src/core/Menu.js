@@ -55,7 +55,13 @@ const Menu = (props) => {
                             </li>
 
                             <li className="nav-item active">
-                                <Link style={isActive(props.history, '/dashboard')} className="nav-link" to="/dashboard">Dashboard <span className="sr-only">(current)</span></Link>
+                                <Link
+                                    style={isActive(props.history, '/dashboard')}
+                                    className="nav-link"
+                                    to={`${isAuthenticated() && isAuthenticated().user.role === 1 ? '/admin' : ''}/dashboard`}
+                                >
+                                    Dashboard
+                                </Link>
                             </li>
                         </Fragment>
 
