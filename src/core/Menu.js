@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { API_URL } from './../config';
 import toastr from 'toastr';
@@ -34,6 +34,18 @@ const Menu = (props) => {
             })
             .catch()
     }
+
+
+    const isAuthenticated = () => {
+
+        const jwt = localStorage.getItem('jwt_info');
+        if (jwt) {
+            return JSON.parse(jwt);
+        }
+
+        return false
+    }
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -43,21 +55,31 @@ const Menu = (props) => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <Link style={isActive(props.history, '/')} className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
-                        </li>
-
+                        {isAuthenticated() && (
+                            <li className="nav-item active">
+                                <Link style={isActive(props.history, '/')} className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+                            </li>
+                        )}
                     </ul>
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link style={isActive(props.history, '/signin')} className="nav-link" to="/signin">Connexion</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link style={isActive(props.history, '/signup')} className="nav-link" to="/signup">Register</Link>
-                        </li>
-                        <li className="nav-item">
-                            <span className="nav-link" style={{ cursor: 'pointer' }} onClick={signout} >SignOut</span>
-                        </li>
+
+                        {!isAuthenticated() && (
+                            <Fragment>
+                                <li className="nav-item">
+                                    <Link style={isActive(props.history, '/signin')} className="nav-link" to="/signin">Connexion</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link style={isActive(props.history, '/signup')} className="nav-link" to="/signup">Register</Link>
+                                </li>
+                            </Fragment>
+                        )}
+
+                        {isAuthenticated() && (
+
+                            <li className="nav-item">
+                                <span className="nav-link" style={{ cursor: 'pointer' }} onClick={signout} >SignOut</span>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </nav>
