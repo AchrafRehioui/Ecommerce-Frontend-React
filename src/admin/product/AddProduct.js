@@ -7,11 +7,20 @@ import { isAuthenticated } from './../../auth/helpers';
 
 function AddProduct() {
 
-    const [name, setName] = useState('');
+    const [product, setProduct] = useState({
+        photo: '',
+        name: '',
+        description: '',
+        quantity: 0,
+        price: 0,
+        category: 0,
+        shipping: false
+    });
 
     const handleChange = (e) => {
 
-        setName(e.target.value);
+        setProduct({...product, [e.target.id]: value});
+
 
     }
 
@@ -21,7 +30,7 @@ function AddProduct() {
 
         const { user, token } = isAuthenticated();
 
-        fetch(`${API_URL}/category/create/${user._id}`, {
+        fetch(`${API_URL}/product/create/${user._id}`, {
             method: "POST",
             headers: {
 
@@ -30,7 +39,7 @@ function AddProduct() {
                 "Authorization": `Bearer ${token}`
 
             },
-            body: JSON.stringify({ name })
+            body: JSON.stringify({ product })
         })
             .then(res => res.json())
             .then(res => {
@@ -40,18 +49,24 @@ function AddProduct() {
                     })
                 }
                 else {
-                    toastr.success(`Category ${name} created`, 'new Category', {
+                    toastr.success(`Product ${product.name} created`, 'new new Product', {
                         positionClass: "toast-bottom-left",
                     })
 
-                    setName("")
+                    setProduct({
+                        photo: '',
+                        name: '',
+                        description: '',
+                        quantity: 0,
+                        price: 0,
+                        category: 0,
+                        shipping: false
+                    })
                 }
             })
             .catch(err => toastr.error(err, 'Server error !', {
                 positionClass: "toast-bottom-left",
             }))
-
-
     }
 
     return (
@@ -64,11 +79,47 @@ function AddProduct() {
                 <div className="row">
                     <div className="col-md-6 mx-auto">
                         <form onSubmit={submitProduct}>
+                            
+                            <div className="input-group">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text">Upload photo</span>
+                                </div>
+                                <div className="custom-file">
+                                    <input type="file" className="cutom-file-input" name="photo"/>
+                                    <label htmlFor="" className="cutom-fole-label">Product</label>
+                                </div>
+                            </div>
+
                             <div className="form-group">
                                 <label htmlFor="" className="text-muted"></label>
-                                <input value={name} required autoFocus placeholder="Add a Product" onChange={handleChange} type="text" className="form-control" />
+                                <input  required autoFocus placeholder="Add a Product" onChange={handleChange} type="text" className="form-control" />
                             </div>
-                            <button className="btn-outline-primary">New Product</button>
+                            <div className="form-group">
+                                <label htmlFor="description">description</label>
+                                <textarea name="description" id="description" cols="30" rows="10" className="form-control">
+                                </textarea>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="quantity">quantity</label>
+                                <input type="number" id="quantity" className="form-control"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="price">price</label>
+                                <input type="number" id="price" className="form-control"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="category">category</label>
+                                <select name="category" id="category" className="form-control">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="shipping"/>
+                                <label className="form-check-label" for="shipping">shipping</label>
+                            </div>
+
+                            <button className="my-5 btn-block btn btn-outline-primary">New Product</button>
                         </form>
                     </div>
                 </div>
