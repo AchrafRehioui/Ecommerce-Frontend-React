@@ -20,7 +20,7 @@ const Routes = () => {
                 <PrivateRoute path='/' exact component={Home} />
                 <PrivateRoute path='/dashboard' exact component={Dashboard} />
                 <AdminRoute path='/admin/dashboard' exact component={AdminDashboard} />
-                <AdminRoute path='/create/category' exact component={AddCategory} />
+                <AdminRoute path='/category/create' exact component={AddCategory} />
                 <Route path='/signin' exact component={Signin} />
                 <Route path='/signup' exact component={Signup} />
             </Switch>

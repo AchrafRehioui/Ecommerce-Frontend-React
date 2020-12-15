@@ -34,10 +34,10 @@ function AdminDashboard() {
                     <h5 className="card-title">User Links</h5>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">
-                            <Link className="nav-link" to="/create/category">Create category</Link>
+                            <Link className="nav-link" to="/category/create">Create category</Link>
                         </li>
                         <li className="list-group-item">
-                            <Link className="nav-link" to="/create/product">Create product</Link>
+                            <Link className="nav-link" to="/product/create">Create product</Link>
                         </li>
                     </ul>
                 </div>
