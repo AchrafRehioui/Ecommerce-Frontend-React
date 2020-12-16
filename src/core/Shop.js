@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
+import { getCategories } from './ApiCore';
 
 const  Shop = () => {
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        getCategories()
+            .then(res => setCategories(res))
+    }, [])
+
+
     return (
         <div>
             <Layout
@@ -11,8 +21,7 @@ const  Shop = () => {
             > 
                 <div className="row">
                     <div className="col-md-4">
-                        Sidebar
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, quod!
+                        { JSON.stringify(categories)}
                     </div>
                     <div className="col-md-8">
                         content
