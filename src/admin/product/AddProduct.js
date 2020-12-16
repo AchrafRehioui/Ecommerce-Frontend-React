@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from './../../core/Layout';
 import toastr from 'toastr';
 import "toastr/build/toastr.css";
@@ -21,6 +21,26 @@ function AddProduct() {
 
     const [formData, setFormData] = useState(new FormData()); 
 
+    const [categories, setCategories] = useState([]); 
+
+    useEffect(() => getCategories(), [])
+
+
+    const getCategories = () => {
+
+       fetch(`${API_URL}/category`, {
+           method: "GET",
+           headers: {
+               "Accept": "application/json",
+               "Content-Type": "application/json"
+           }
+       })
+       .then(res => res.json())
+       .then(res => setCategories(res.categories))
+       .catch(err => console.error(err))
+
+    }
+
     const handleChange = (e) => {
 
         const value = e.target.id === 'photo' ? e.target.files[0] : e.target.value;
@@ -31,7 +51,7 @@ function AddProduct() {
         
      }
 
-const submitProduct = (e) => {
+    const submitProduct = (e) => {
         
         e.preventDefault();
 
@@ -115,7 +135,9 @@ const submitProduct = (e) => {
                                 <label htmlFor="category">category</label>
                                 <select value={product.category} onChange={handleChange} name="category" id="category" className="form-control">
                                     <option value="0">Select a category</option>
-                                    <option value="5fd3937d6f3efd69901abf81">web developpement</option>
+                                    { categories && categories.map((category, i) => (
+                                        <option key={i} value={category._id}>{category.name}</option>
+                                    )) }                                
                                 </select>
                             </div>
 
