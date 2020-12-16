@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getCategories } from './ApiCore';
+import FilterByCategory from './FilterByCategory';
 
 const  Shop = () => {
 
@@ -21,7 +22,7 @@ const  Shop = () => {
             > 
                 <div className="row">
                     <div className="col-md-4">
-                        { JSON.stringify(categories)}
+                        <FilterByCategory categories={categories} />
                     </div>
                     <div className="col-md-8">
                         content
