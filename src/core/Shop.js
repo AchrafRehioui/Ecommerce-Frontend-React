@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getCategories } from './ApiCore';
 import FilterByCategory from './FilterByCategory';
+import FilterByPrice from './FilterByPrice';
 
 const  Shop = () => {
 
@@ -36,6 +37,8 @@ const  Shop = () => {
                             categories={categories} 
                             handleFilters={(data) => handleFilters(data, 'category')}
                         />
+                        <hr/>
+                        <FilterByPrice />
                     </div>
                     <div className="col-md-8">
                         {JSON.stringify(myFilters)}
