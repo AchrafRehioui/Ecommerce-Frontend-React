@@ -8,8 +8,9 @@ import FilterByPrice from './FilterByPrice';
 const  Shop = () => {
 
     const [categories, setCategories] = useState([]);
-    const [limit, setLimit] = useState(12);
+    const [limit, setLimit] = useState(2);
     const [skip, setSkip] = useState(0);
+    const [size, setSize] = useState(0);
     const [productsFiltred, setProductsFiltred] = useState([]);
 
     const [myFilters, setMyFilters] = useState({
@@ -21,8 +22,12 @@ const  Shop = () => {
         getCategories()
             .then(res => setCategories(res))
             
-        filterProducts(skip, limit, myFilters)
-            .then(res => setProductsFiltred(res))
+            filterProducts(skip, limit, myFilters)
+            .then(res => {
+                setProductsFiltred(res)
+                setSkip(0)
+                setSize(res.length)
+            })
     }, [myFilters])
 
 
@@ -35,6 +40,32 @@ const  Shop = () => {
             //console.log('SHOP', data, filterBy);
     }
 
+    const loadMore = () => {
+        
+        const toSkip = skip + limit;
+
+        filterProducts(toSkip, limit, myFilters)
+        .then(res => {
+            setProductsFiltred([...productsFiltred, ...res])
+            setSize(res.length)
+            setSkip(toSkip)
+        })
+    }
+
+
+    const buttonToLoadMore = () => {
+
+        return (
+            size > 0 && 
+            size >= limit &&
+            (
+                <div className="text-center">
+                     <button onClick={loadMore} className="btn btn-outline-success">Load More</button> 
+                </div>
+            )
+        )
+
+    }
 
     return (
         <div>
@@ -61,6 +92,7 @@ const  Shop = () => {
                             ))}
                         
                 </div>
+                                { buttonToLoadMore()}
                     </div>
                 </div>
             </Layout>
