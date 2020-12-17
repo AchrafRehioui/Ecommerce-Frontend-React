@@ -34,4 +34,4 @@ function FilterByCategory({ categories, handleFilters }) {
     )
 }
 
-export default FilterByCategory
+export default FilterByCategory;

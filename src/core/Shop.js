@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
+import Card from './Card';
 import { getCategories, filterProducts } from './ApiCore';
 import FilterByCategory from './FilterByCategory';
 import FilterByPrice from './FilterByPrice';
@@ -43,19 +44,23 @@ const  Shop = () => {
                 className="container"
             > 
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <FilterByCategory 
                             categories={categories} 
-                            handleFilters={(data) => handleFilters(data, 'category')}
+                            handleFilters={data => handleFilters(data, 'category')}
                         />
                         <hr/>
                         <FilterByPrice handleFilters={data => handleFilters(data, 'price')}/>
                     </div>
-                    <div className="col-md-8">
-                        {JSON.stringify(myFilters)}
-                        <br/>
-                        <br/>
-                        {JSON.stringify(productsFiltred)}
+                    <div className="col-md-9">
+                    <div className="row mb-5">
+                            {productsFiltred.map((product, i) => (
+                            <div key={product._id} className="col-md-4">
+                                    <Card product={product}></Card> 
+                            </div>  
+                            ))}
+                        
+                </div>
                     </div>
                 </div>
             </Layout>

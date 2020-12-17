@@ -29,7 +29,8 @@ export const getCategories = () => {
 export const filterProducts = (skip, limit, filters) => {
 
     const data = {
-        
+        skip,
+        limit,
         filters
     }
 

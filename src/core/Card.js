@@ -6,14 +6,18 @@ import ShowImage from './ShowImage';
 const Card = ({product}) => {
     return (
         <div>
-            <div className="card">
-                <div className="card-header">{product.name}</div>
-                <ShowImage item={product} url="product/photo" className="card-img-top"></ShowImage>
+      <div className="card bg-dark text-white mb-2 px-2">
+              <div className="card-header">
+                <h4 className="display-6 text-center">{product.name}</h4> </div>
+               <ShowImage item={product} url="product/photo" className="card-img-top"></ShowImage>
                 <div className="card-body">
                     <p>{product.description}</p>
-                    <p>{product.price}</p>
+                    <div>
+                        <h4><span class="badge badge-info">${product.price}</span></h4><br/>
+                        {/* <span class="badge badge-pill badge-dark">{product.category.name}</span><br/> */}
+                    </div>
                     <Link to="">
-                        <button className="btn btn-warning mr-1">View Product</button>
+                        <button className="btn btn-warning mr-1">View</button>
                     </Link>
                     <button className="btn btn-success">Add to Cart</button>
                 </div>

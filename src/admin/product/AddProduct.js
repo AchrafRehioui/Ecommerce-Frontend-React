@@ -132,12 +132,12 @@ function AddProduct() {
                                 <input value={product.price} onChange={handleChange} type="number" id="price" className="form-control"/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="category">category</label>
+                            <label htmlFor="category">category</label>
                                 <select value={product.category} onChange={handleChange} name="category" id="category" className="form-control">
                                     <option value="0">Select a category</option>
                                     { categories && categories.map((category, i) => (
                                         <option key={i} value={category._id}>{category.name}</option>
-                                    )) }                                
+                                    )) }
                                 </select>
                             </div>
 
