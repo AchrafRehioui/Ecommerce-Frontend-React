@@ -14,7 +14,7 @@ function FilterByCategory({ categories, handleFilters }) {
             checked.add(category._id)
 
         }
-        handleFilters(checked)
+        handleFilters(Array.from(checked))
     }
 
     return (

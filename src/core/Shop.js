@@ -7,13 +7,18 @@ const  Shop = () => {
 
     const [categories, setCategories] = useState([]);
 
+    const [myFilters, setMyFilters] = useState({
+        category: [],
+        price: []
+    });
+
     useEffect(() => {
         getCategories()
             .then(res => setCategories(res))
     }, [])
 
     const  handleFilters = (data, filterBy) => {
-
+            setMyFilters({...myFilters, [filterBy]: data})
             console.log('SHOP', data, filterBy);
     }
 
@@ -33,6 +38,8 @@ const  Shop = () => {
                         />
                     </div>
                     <div className="col-md-8">
+                        {JSON.stringify(myFilters)}
+                        <br/>
                         content
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, amet?
                     </div>
