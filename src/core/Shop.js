@@ -38,7 +38,7 @@ const  Shop = () => {
                             handleFilters={(data) => handleFilters(data, 'category')}
                         />
                         <hr/>
-                        <FilterByPrice />
+                        <FilterByPrice handleFilters={data => handleFilters(data, 'price')}/>
                     </div>
                     <div className="col-md-8">
                         {JSON.stringify(myFilters)}

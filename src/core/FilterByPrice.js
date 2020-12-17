@@ -1,6 +1,6 @@
 import React from 'react'
 
-const  FilterByPrice = () => {
+const  FilterByPrice = ({ handleFilters }) => {
 
     const prices = [
         {
@@ -35,6 +35,10 @@ const  FilterByPrice = () => {
         }
     ]
 
+    const handlePrice = (e) => {
+        handleFilters(prices[e.target.value]['value'])
+    }
+
     return (
         <div>
 
@@ -43,7 +47,14 @@ const  FilterByPrice = () => {
             {prices.map((price, i) => (
                 <div key={`${i}-${price.name}`} className="my-2">
                     <label htmlFor={`${i}-${price.name}`}>
-                        <input className="mx-3" type="radio" name="price" id={`${i}-${price.name}`}/>
+                        <input 
+                            onChange={handlePrice}
+                            className="mx-3" 
+                            type="radio" 
+                            name="price" 
+                            id={`${i}-${price.name}`} 
+                            value={i}
+                            />
                         {price.name}
                     </label>
                 </div>
