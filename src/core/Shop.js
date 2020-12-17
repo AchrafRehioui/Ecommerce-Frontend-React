@@ -12,6 +12,11 @@ const  Shop = () => {
             .then(res => setCategories(res))
     }, [])
 
+    const  handleFilters = (data, filterBy) => {
+
+            console.log('SHOP', data, filterBy);
+    }
+
 
     return (
         <div>
@@ -22,7 +27,10 @@ const  Shop = () => {
             > 
                 <div className="row">
                     <div className="col-md-4">
-                        <FilterByCategory categories={categories} />
+                        <FilterByCategory 
+                            categories={categories} 
+                            handleFilters={(data) => handleFilters(data, 'category')}
+                        />
                     </div>
                     <div className="col-md-8">
                         content
