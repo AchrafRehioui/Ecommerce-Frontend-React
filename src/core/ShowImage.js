@@ -8,4 +8,4 @@ const  ShowImage = ({ item, url, className }) => {
         </div>
     )
 }
-export default ShowImage
+export default ShowImage;
