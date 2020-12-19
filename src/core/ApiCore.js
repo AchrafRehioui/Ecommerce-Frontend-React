@@ -1,10 +1,11 @@
-
 import { API_URL } from './../config';
+import queryString from 'query-string';
 
-export const getProducts = (sortBy, order, limit) => {
+export const getProducts = (params) => {
 
+    let query = queryString.stringify(params)
 
-    return fetch(`${API_URL}/product?${sortBy}&order=${order}&limit=${limit}`)
+    return fetch(`${API_URL}/product?${query}`)
         .then(res => res.json())
         .then(res => res.products)
         .catch(err => console.error(err))

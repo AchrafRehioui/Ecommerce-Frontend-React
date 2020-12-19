@@ -6,29 +6,26 @@ import Search from './Search';
 
 function Home() {
 
-    const [productsBestSellers, setProductsBestSellers] = useState([])
-    const [productsArrivals, setProductsArrivals] = useState([])
+    const [productsBestSellers, setProductsBestSellers] = useState([]);
+    const [productsArrivals, setProductsArrivals] = useState([]);
 
     const loadBestSellers = () => {
 
-        getProducts('sold', 'desc', 6)
+        getProducts({ sortBy: 'sold', order: 'desc', limit: 6 })
             .then(products => setProductsBestSellers(products))
 
     }
 
     const loadArrivals = () => {
 
-        getProducts('createdAt', 'desc', 3)
+        getProducts({ sortBy: 'createdAt', order: 'desc', limit: 3 })
             .then(products => setProductsArrivals(products))
-
     }
 
     useEffect(() => {
         loadArrivals()
         loadBestSellers()
-
     }, [])
-
 
     return (
         <div>
