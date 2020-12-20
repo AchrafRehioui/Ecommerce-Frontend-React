@@ -36,7 +36,6 @@ const  Search = () => {
         else {
             setProducts([])
         }
-       
 
     }
 
