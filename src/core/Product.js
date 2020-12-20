@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { getOneProduct } from './ApiCore';
 import Layout from './Layout';
+import Card from './Card';
 
 
 const  Product = (props) => {
@@ -16,11 +17,18 @@ const  Product = (props) => {
 
     return (
         <div>
+            {product && product.description && ( 
+
             <Layout
-                title="Show Product"
-                description="Node React Ecommerce App"
+                title= {product.name}
+                description= {product.description.substring(0, 100)}
                 className="container"
-            ></Layout>
+            >
+                    
+                    <Card product={product} showViewBtn={false}/>
+               
+            </Layout>
+            )}
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ShowImage from './ShowImage';
 
 
-const Card = ({product}) => {
+const Card = ({product, showViewBtn = true}) => {
     return (
         <div>
       <div className="card bg-dark text-white mb-2 px-2">
@@ -16,9 +16,11 @@ const Card = ({product}) => {
                         <h4><span class="badge badge-info">${product.price}</span></h4><br/>
                         {/* <span class="badge badge-pill badge-dark">{product.category.name}</span><br/> */}
                     </div>
-                    <Link to={`/product/${product._id}`}>
-                        <button className="btn btn-warning mr-1">View</button>
-                    </Link>
+                    {showViewBtn && (
+                        <Link to={`/product/${product._id}`}>
+                            <button className="btn btn-warning mr-1">View</button>
+                        </Link>
+                    )}
                     <button className="btn btn-success">Add to Cart</button>
                 </div>
             </div>
