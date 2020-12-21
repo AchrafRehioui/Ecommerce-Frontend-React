@@ -25,8 +25,16 @@ const  Product = (props) => {
                 className="container"
             >
                     
-                    <Card product={product} showViewBtn={false}/>
-               
+                <div className="row">
+                    <div className="col-md-9">
+                        <Card product={product} showViewBtn={false}/>
+                    </div>
+                    <div className="col-md-3">
+                        Related Products
+                    </div>
+                </div>
+
+
             </Layout>
             )}
         </div>

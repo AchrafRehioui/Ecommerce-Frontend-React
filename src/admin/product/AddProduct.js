@@ -51,7 +51,7 @@ function AddProduct() {
         
      }
 
-    const submitProduct = (e) => {
+     const submitProduct = (e) => {
         
         e.preventDefault();
 
