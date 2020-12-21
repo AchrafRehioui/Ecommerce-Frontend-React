@@ -12,21 +12,30 @@ export const getProducts = (params) => {
 
 }
 
+export const relatedProducts = (id) => {
+
+    return fetch(`${API_URL}/product/related/${id}`)
+        .then(res => res.json())
+        .then(res => res.products)
+        .catch(err => console.error(err))
+
+}
+
 export const getOneProduct = (id) => {
 
-    return  fetch(`${API_URL}/product/${id}`, {
-         method: "GET",
-         headers: {
-             "Accept": "application/json",
-             "Content-Type": "application/json"
-         }
-     })
-     .then(res => res.json())
-     .then(res => res.product)
-     .catch(err => console.error(err))
-    
-    }
-    
+    return fetch(`${API_URL}/product/${id}`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(res => res.product)
+        .catch(err => console.error(err))
+
+}
+
 
 export const getCategories = () => {
 

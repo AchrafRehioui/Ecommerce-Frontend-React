@@ -1,20 +1,27 @@
 import React, { useEffect, useState} from 'react';
-import { getOneProduct } from './ApiCore';
+import { getOneProduct, relatedProducts } from './ApiCore';
 import Layout from './Layout';
 import Card from './Card';
 
 
 const  Product = (props) => {
 
-    const [product, setProduct] = useState({})
+    const [product, setProduct] = useState({});
+    const [related, setRelated] = useState([]);
+
 
     useEffect(() => {
+
         let productId = props.match.params.id;
         getOneProduct(productId)
-            .then(res => setProduct(res))
-            .catch(err => console.error(err))
-    }, [])
+          .then(res => {
+              setProduct(res)
+               return relatedProducts(productId)
+            })
+           .then(related => setRelated(related))
+          .catch(err => console.error(err))
 
+    }, [props])
     return (
         <div>
             {product && product.description && ( 
@@ -30,7 +37,10 @@ const  Product = (props) => {
                         <Card product={product} showViewBtn={false}/>
                     </div>
                     <div className="col-md-3">
-                        Related Products
+                        {related.map((product, i) => (
+
+                            <Card key={product._id} product={product} />
+                        ))}
                     </div>
                 </div>
 
