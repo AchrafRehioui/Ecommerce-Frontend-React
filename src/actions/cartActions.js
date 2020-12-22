@@ -33,8 +33,9 @@ export const incProductCount = (item) => {
 
 export const decProductCount = (item) => {
 
-    if(item.count > 1) {
-
+    
+    if(item.count > 1){
+        
         let items = JSON.parse(localStorage.getItem('cart'));
    
         items = items.map(product => product._id === item._id ? {...item, count: product.count - 1} : product)

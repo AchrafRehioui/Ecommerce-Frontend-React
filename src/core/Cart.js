@@ -27,6 +27,7 @@ function Cart() {
                                     <th>Name</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,11 +47,16 @@ function Cart() {
                                                 <div class="input-group-prepend">
                                                 <button onClick={() => dispatch(incProductCount(product))} className="btn ml-2 btn-raised btn-sm btn-info"><i className="material-icons">add</i></button>                                                    
                                                 
+                                                {product.count > 1 && (
+
                                                 <button onClick={() => dispatch(decProductCount(product))} className="btn btn-raised btn-sm btn-secondary"><i className="material-icons">remove</i></button>
+                                                
+                                                )}
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{product.price}</td>
+                                        <td>$ {product.price}</td>
+                                        <td>$ {product.price * product.count}</td>
                                     </tr>
                                 ))}
                              
