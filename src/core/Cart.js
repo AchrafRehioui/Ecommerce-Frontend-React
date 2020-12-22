@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { incProductCount, decProductCount } from './../actions/cartActions';
+import { incProductCount, decProductCount, removeProduct } from './../actions/cartActions';
 import Layout from './Layout';
 import ShowImage from './ShowImage';
 
@@ -15,7 +15,7 @@ function Cart() {
              <Layout
                 title="Cart"
                 description="List of Products in Cart"
-                className="container"
+                className="container-fluid"
             >
                 <div className="row">
                     <div className="col-md-9">
@@ -28,6 +28,7 @@ function Cart() {
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Total</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,6 +58,11 @@ function Cart() {
                                         </td>
                                         <td>$ {product.price}</td>
                                         <td>$ {product.price * product.count}</td>
+                                        <td className="text-right">
+                                            <button onClick={() => dispatch(removeProduct(product._id))} className="btn btn-sm btn-dark">
+                                                <i className="material-icons">delete</i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                              

@@ -35,7 +35,7 @@ export const decProductCount = (item) => {
 
     
     if(item.count > 1){
-        
+
         let items = JSON.parse(localStorage.getItem('cart'));
    
         items = items.map(product => product._id === item._id ? {...item, count: product.count - 1} : product)
@@ -50,4 +50,19 @@ export const decProductCount = (item) => {
 
     return {type: null}
      
+}
+
+export const removeProduct = (id) => {
+
+    let items = JSON.parse(localStorage.getItem('cart'));
+    
+    items = items.filter(product => product._id !== id)
+
+    localStorage.setItem('cart', JSON.stringify(items));
+
+    return {
+        type: 'REMOVE_PRODUCT',
+        payload: items
+    }
+
 }
