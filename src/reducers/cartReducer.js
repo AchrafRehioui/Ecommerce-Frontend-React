@@ -2,7 +2,7 @@ let items = JSON.parse(localStorage.getItem('cart')) || []
 
 let myState = {
     products: JSON.parse(localStorage.getItem('cart')) || [],
-    count: items.length
+    count: items.reduce((total, product) => total + product.count, 0)
 }
 
 const cartReducer = (state = myState, action) => {
@@ -20,7 +20,8 @@ const cartReducer = (state = myState, action) => {
 
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                count: state.count + 1
             }
 
         }
@@ -28,7 +29,8 @@ const cartReducer = (state = myState, action) => {
 
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                count: state.count - 1
 
             }
 
