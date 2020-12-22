@@ -16,6 +16,24 @@ const cartReducer = (state = myState, action) => {
             }
         }
 
+        case 'INCPRODUCTCOUNT': {
+
+            return {
+                ...state,
+                products: action.payload
+            }
+
+        }
+        case 'DECPRODUCTCOUNT': {
+
+            return {
+                ...state,
+                products: action.payload
+
+            }
+
+        }
+
         default: {
             return state
         }
