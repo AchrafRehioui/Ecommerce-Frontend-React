@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Checkout from './Checkout';
 import { incProductCount, decProductCount, removeProduct } from './../actions/cartActions';
 import Layout from './Layout';
 import ShowImage from './ShowImage';
@@ -69,7 +70,9 @@ function Cart() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="col-md-3"></div>
+                    <div className="col-md-3">
+                        <Checkout products={productsInCart}/>
+                    </div>
                 </div>
 
             </Layout>
