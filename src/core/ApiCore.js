@@ -37,7 +37,7 @@ export const getBraintreeToken = (userId, token) => {
 
 }
 
-export const procesPayment = (userId, token, paymentData) => {
+export const processPayment = (userId, token, paymentData) => {
 
     return fetch(`${API_URL}/braintree/purchase/${userId}`, {
         method: "POST",

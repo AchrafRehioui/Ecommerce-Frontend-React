@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from './../auth/helpers';
+import { isAuthenticated, emptyCart } from './../auth/helpers';
 import { Link } from 'react-router-dom';
-import { getBraintreeToken, procesPayment } from './ApiCore';
+import { getBraintreeToken, processPayment } from './ApiCore';
 import DropIn from 'braintree-web-drop-in-react';
 
 import toastr from 'toastr';
@@ -46,33 +46,40 @@ function Checkout({ products }) {
 
     const buy = () => {
 
+        
         data.instance.requestPaymentMethod()
-            .then(data =>  {
-                
+            .then(data => {
+
                 let paymentData = {
                     amount: totalToCheckout(products),
                     paymentMethodNonce: data.nonce
                 }
 
-                console.log(paymentData);
-
-                procesPayment(userId, token, paymentData)
+                processPayment(userId, token, paymentData)
                     .then(res => {
-                        console.log(res)})
+                        
+                        emptyCart(() => {
+                            toastr.success('Valid', 'Thanks, Payment was SuccessFully', {
+                                positionClass: "toast-bottom-left",
+                        })
+                        
+                })
+                    })
                     .catch(err => {
                         toastr.error('inValid', err.message, {
-                            positionClass: "toast-bottom-left",
-                        })
+                        positionClass: "toast-bottom-left",
                     })
+                })
 
-                toastr.success('Valid', 'Please Check form !', {
-                positionClass: "toast-bottom-left",
             })
-        })
-            .catch(err => toastr.error('inValid', err.message, {
-                positionClass: "toast-bottom-left",
-            }))
+            .catch(err => {
+                toastr.error('inValid', err.message, {
+                          positionClass: "toast-bottom-left",
+                  })
+            })
+        
     }
+   
 
     const showBtnToCheckout = () => {
         if(isAuthenticated()){

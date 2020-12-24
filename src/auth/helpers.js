@@ -10,3 +10,12 @@ export const isAuthenticated = () => {
 
     return false
 }
+
+
+export const emptyCart = (callback) => {
+
+    localStorage.removeItem('cart');
+
+    callback();
+
+}
