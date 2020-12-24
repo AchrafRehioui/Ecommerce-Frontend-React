@@ -53,6 +53,22 @@ export const processPayment = (userId, token, paymentData) => {
 
 }
 
+export const createOrder = (userId, token, orderData) => {
+
+    return fetch(`${API_URL}/order/create/${userId}`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(orderData)
+    })
+        .then(res => res.json())
+
+
+}
+
 export const getOneProduct = (id) => {
 
     return fetch(`${API_URL}/product/${id}`, {

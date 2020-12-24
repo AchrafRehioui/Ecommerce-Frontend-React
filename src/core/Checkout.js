@@ -13,7 +13,8 @@ function Checkout({ products }) {
     const [data, setData] = useState({
         braintreeToken: null,
         error: null,
-        instance: {}
+        instance: {},
+        address: ''
     })
 
     const userId = isAuthenticated() && isAuthenticated().user._id;
@@ -34,7 +35,10 @@ function Checkout({ products }) {
         <div>
                 { data.braintreeToken !== null && products.length > 0 && (
                     <DropIn options={{
-                        authorization: data.braintreeToken
+                        authorization: data.braintreeToken,
+                        paypal: {
+                            flow: "vault"
+                        }
                     }}
                     onInstance={instance => data.instance = instance}
                     />
@@ -58,6 +62,17 @@ function Checkout({ products }) {
                 processPayment(userId, token, paymentData)
                     .then(res => {
                         
+                        let orderData = {
+                            products,
+                            transactionId: res.transaction.id,
+                            amount: res.transaction.amount,
+                            address: data.address
+                        }
+
+                        createOrder(userId, token, orderData )
+                            .then(res => console.log(res))
+                            .catch(err => console.log(err));
+
                         emptyCart(() => {
                             toastr.success('Valid', 'Thanks, Payment was SuccessFully', {
                                 positionClass: "toast-bottom-left",
@@ -99,9 +114,17 @@ function Checkout({ products }) {
         )
     }
 
+    const handleInput = (e) => {
+
+        setData({...data, address: e.target.value})
+    }
+
     return (
         <div>
             <h2 className="text-center">Total : <span className="badge badge-success">{totalToCheckout(products)}</span></h2>
+            
+            <textarea onChange={handleInput} rows="2"></textarea>
+
             {showBtnToCheckout()}
         </div>
     )
