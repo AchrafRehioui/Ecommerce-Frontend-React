@@ -21,6 +21,22 @@ export const relatedProducts = (id) => {
 
 }
 
+
+export const getBraintreeToken = (userId, token) => {
+
+    return fetch(`${API_URL}/braintree/getToken/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            ContentType: "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(res => res.json())
+        
+
+}
+
 export const getOneProduct = (id) => {
 
     return fetch(`${API_URL}/product/${id}`, {
