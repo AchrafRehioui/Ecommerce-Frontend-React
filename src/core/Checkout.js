@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { getBraintreeToken } from './ApiCore';
 import DropIn from 'braintree-web-drop-in-react';
 
-
+import toastr from 'toastr';
+import "toastr/build/toastr.css";
 
 function Checkout({ products }) {
 
@@ -43,13 +44,23 @@ function Checkout({ products }) {
     )
 
 
+    const buy = () => {
+
+        data.instance.requestPaymentMethod()
+            .then(data =>  toastr.success('Valid', 'Please Check form !', {
+                positionClass: "toast-bottom-left",
+            }))
+            .catch(err => toastr.error('inValid', err.message, {
+                positionClass: "toast-bottom-left",
+            }))
+    }
 
     const showBtnToCheckout = () => {
         if(isAuthenticated()){
             return (
                 <>
                 { dropIn() }
-                <button className="btn btn-raised btn-success btn-block">Checkout</button>
+                <button onClick={buy} className="btn btn-raised btn-success btn-block">Pay</button>
                 </>
             )
         }
