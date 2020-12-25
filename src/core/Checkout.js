@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated, emptyCart } from './../auth/helpers';
 import { Link } from 'react-router-dom';
-import { getBraintreeToken, processPayment } from './ApiCore';
+import { getBraintreeToken, processPayment, createOrder } from './ApiCore';
 import DropIn from 'braintree-web-drop-in-react';
 
 import toastr from 'toastr';
@@ -123,7 +123,8 @@ function Checkout({ products }) {
         <div>
             <h2 className="text-center">Total : <span className="badge badge-success">{totalToCheckout(products)}</span></h2>
             
-            <textarea onChange={handleInput} rows="2"></textarea>
+            <label htmlFor="address">Delivery address</label>
+            <textarea id="address" className="form-control"  onChange={handleInput} rows="2"></textarea>
 
             {showBtnToCheckout()}
         </div>
