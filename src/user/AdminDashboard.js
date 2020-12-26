@@ -39,6 +39,9 @@ function AdminDashboard() {
                         <li className="list-group-item">
                             <Link className="nav-link" to="/product/create">Create product</Link>
                         </li>
+                        <li className="list-group-item">
+                            <Link className="nav-link" to="/admin/order">View Orders</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -12,6 +12,7 @@ import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import AddCategory from './admin/category/AddCategory';
 import AddProduct from './admin/product/AddProduct';
+import ListOrders from './admin/order/ListOrders';
 import Product from './core/Product';
 import Cart from './core/Cart';
 
@@ -27,6 +28,7 @@ const Routes = () => {
                 <AdminRoute path='/admin/dashboard' exact component={AdminDashboard} />
                 <AdminRoute path='/category/create' exact component={AddCategory} />
                 <AdminRoute path='/product/create' exact component={AddProduct} />
+                <AdminRoute path='/admin/order' exact component={ListOrders} />
                 <Route path='/signin' exact component={Signin} />
                 <Route path='/signup' exact component={Signup} />
                 <Route path='/cart' exact component={Cart} />
