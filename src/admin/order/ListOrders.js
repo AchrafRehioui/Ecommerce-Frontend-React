@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { isAuthenticated } from './../../auth/helpers';
 import Layout from './../../core/Layout';
-import { listOfOrders, getStatus } from './../ApiAdmin';
+import { listOfOrders, getStatus, updateOrderStatus } from './../ApiAdmin';
 
 
 function ListOrders() {
@@ -56,11 +56,22 @@ function ListOrders() {
         )
     } 
 
+    const handleStatus = (e, order) => {
+
+        updateOrderStatus(user._id, token, order._id, e.target.value )
+                .then(res => {
+                    if(res.error){
+                        console.log(res.error)
+                    }
+                    loadOrders(user, token)
+                })
+    }
+
     const showStatus = (order) => {
         return status.length && (
             <>
                 <h4>Status: {order.status}</h4>
-                <select className="form-control">
+                <select onChange={e => handleStatus(e, order)} className="form-control">
                     <option value="">Select Status</option>
                         {status.map(s => (
                             <option key={s} value={s}>{s}</option>

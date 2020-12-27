@@ -29,3 +29,18 @@ export const getStatus = (userId, token) => {
 
 
 }
+
+export const updateOrderStatus = (userId, token, orderId, status) => {
+
+    return fetch(`${API_URL}/order/${orderId}/status/${userId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({status})
+    })
+        .then(res => res.json())
+
+
+}
