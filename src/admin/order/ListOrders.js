@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { isAuthenticated } from './../../auth/helpers';
 import Layout from './../../core/Layout';
-import { listOfOrders } from './../ApiAdmin';
+import { listOfOrders, getStatus } from './../ApiAdmin';
 
 
 function ListOrders() {
 
     const [orders, setOrders] = useState([]);
+    const [status, setStatus] = useState([]);
 
     const { user, token } = isAuthenticated();
 
@@ -18,8 +19,16 @@ function ListOrders() {
             .catch(err => console.error(err))
     }
 
+    const loadStatus = (user, token) => {
+
+        getStatus(user._id, token)
+            .then(res => setStatus(res.status))
+            .catch(err => console.error(err))
+    }
+
     useEffect(() => {
         loadOrders(user, token)
+        loadStatus(user, token)
     }, []);
 
     const notOrders = () => {
@@ -47,13 +56,27 @@ function ListOrders() {
         )
     } 
 
+    const showStatus = (order) => {
+        return status.length && (
+            <>
+                <h4>Status: {order.status}</h4>
+                <select className="form-control">
+                    <option value="">Select Status</option>
+                        {status.map(s => (
+                            <option key={s} value={s}>{s}</option>
+                        ))}
+                </select>
+            </>
+        )
+    }
+
     const showOrders = () => {
         return orders.length && orders.map(order => (
             <div className="my-3" key={order._id}>
                 <ul class="list-group">
                     <li className="list-group-item active"><strong>Transact ID</strong>{order.transaction_id}</li>
-                    <li className="list-group-item"><strong>Amount</strong> ${order.amount}</li>
-                    <li className="list-group-item"><strong>Status</strong> {order.status}</li>
+                    <li className="list-group-item">{showStatus(order)}</li>
+                    <li className="list-group-item"><strong>Amount</strong> ${order.amount}</li>                 
                     <li className="list-group-item"><strong>Ordered On </strong> {moment(order.createdAt).fromNow()}</li>
                     <li className="list-group-item"><strong>Customer </strong> {order.user.name}</li>
                     <li className="list-group-item"><strong>Delivery Address </strong> {order.address}</li>

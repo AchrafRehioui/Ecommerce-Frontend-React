@@ -13,3 +13,19 @@ export const listOfOrders = (userId, token) => {
 
 
 }
+
+
+
+export const getStatus = (userId, token) => {
+
+    return fetch(`${API_URL}/order/status/${userId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(res => res.json())
+
+
+}
